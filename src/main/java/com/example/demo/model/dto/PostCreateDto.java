@@ -17,4 +17,5 @@ public class PostCreateDto {
         this.writerId = writerId;
         this.content = content;
     }
+
 }

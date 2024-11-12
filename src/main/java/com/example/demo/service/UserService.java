@@ -82,4 +82,5 @@ public class UserService {
     private String generateCertificationUrl(UserEntity userEntity) {
         return "http://localhost:8080/api/users/" + userEntity.getId() + "/verify?certificationCode=" + userEntity.getCertificationCode();
     }
+
 }

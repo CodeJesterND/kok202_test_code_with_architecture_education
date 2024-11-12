@@ -20,4 +20,5 @@ public class UserCreateDto {
         this.nickname = nickname;
         this.address = address;
     }
+
 }

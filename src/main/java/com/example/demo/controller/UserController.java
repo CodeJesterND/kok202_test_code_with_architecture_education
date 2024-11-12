@@ -94,4 +94,5 @@ public class UserController {
         myProfileResponse.setLastLoginAt(userEntity.getLastLoginAt());
         return myProfileResponse;
     }
+
 }

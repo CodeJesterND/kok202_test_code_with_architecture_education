@@ -46,4 +46,5 @@ public class PostController {
         PostResponse.setWriter(userController.toResponse(postEntity.getWriter()));
         return PostResponse;
     }
+
 }

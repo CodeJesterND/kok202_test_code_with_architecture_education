@@ -27,4 +27,5 @@ public class PostCreateController {
             .status(HttpStatus.CREATED)
             .body(postController.toResponse(postService.create(postCreateDto)));
     }
+
 }

@@ -14,4 +14,5 @@ public class MyProfileResponse {
     private String address;
     private UserStatus status;
     private Long lastLoginAt;
+
 }

@@ -14,4 +14,5 @@ public class PostUpdateDto {
         @JsonProperty("content") String content) {
         this.content = content;
     }
+
 }

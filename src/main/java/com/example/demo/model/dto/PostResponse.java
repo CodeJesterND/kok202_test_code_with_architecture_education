@@ -12,4 +12,5 @@ public class PostResponse {
     private Long createdAt;
     private Long modifiedAt;
     private UserResponse writer;
+
 }

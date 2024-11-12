@@ -15,4 +15,5 @@ public class HealthCheckController {
             .ok()
             .build();
     }
+
 }

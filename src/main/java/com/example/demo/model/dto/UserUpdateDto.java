@@ -17,4 +17,5 @@ public class UserUpdateDto {
         this.nickname = nickname;
         this.address = address;
     }
+
 }

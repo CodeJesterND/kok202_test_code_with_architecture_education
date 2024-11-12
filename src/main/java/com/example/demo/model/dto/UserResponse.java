@@ -13,4 +13,5 @@ public class UserResponse {
     private String nickname;
     private UserStatus status;
     private Long lastLoginAt;
+
 }
