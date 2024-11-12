@@ -1,10 +1,11 @@
 package com.example.demo.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.demo.model.dto.PostCreateDto;
+import com.example.demo.model.dto.PostUpdateDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,29 +24,45 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureTestDatabase
 @TestPropertySource("classpath:test-application.properties")
 @SqlGroup({
-        @Sql(value = "/sql/post-create-controller-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(value = "/sql/post-controller-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
         @Sql(value = "/sql/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 })
-class PostCreateControllerTest {
+class PostControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void 사용자는_게시물을_작성할_수_있다() throws Exception {
+    void 사용자는_게시물을_단건_조회_할_수_있다() throws Exception {
 
         // given
-        PostCreateDto postCreateDto = PostCreateDto.builder()
-                .writerId(1)
+        // when
+        // then
+        mockMvc.perform(get("/api/posts/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.content").value("hello world"))
+                .andExpect(jsonPath("$.writer.id").isNumber())
+                .andExpect(jsonPath("$.writer.email").value("dev.hyoseung@gmail.com"))
+                .andExpect(jsonPath("$.writer.nickname").value("hyoseung"));
+    }
+
+    @Test
+    void 사용자는_게시물을_수정할_수_있다() throws Exception {
+
+        // given
+        PostUpdateDto postUpdateDto = PostUpdateDto.builder()
                 .content("Hello World")
                 .build();
 
+        // when
+        // then
         mockMvc.perform(
-                post("/api/posts")
+                put("/api/posts/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(postCreateDto)))
-                .andExpect(status().isCreated())
+                        .content(objectMapper.writeValueAsString(postUpdateDto)))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.content").value("Hello World"))
                 .andExpect(jsonPath("$.writer.id").isNumber())
