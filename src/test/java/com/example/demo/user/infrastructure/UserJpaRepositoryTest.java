@@ -1,8 +1,8 @@
-package com.example.demo.repository;
+package com.example.demo.user.infrastructure;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.example.demo.model.UserStatus;
+import com.example.demo.user.domain.UserStatus;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +15,13 @@ import org.springframework.test.context.jdbc.SqlGroup;
 @DataJpaTest
 @TestPropertySource("classpath:test-application.properties")
 @SqlGroup({
-        @Sql(value = "/sql/user-repository-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
-        @Sql(value = "/sql/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD),
+        @Sql(value = "/sql/user/user-repository-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(value = "/sql/common/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD),
 })
-class UserRepositoryTest {
+class UserJpaRepositoryTest {
 
     @Autowired
-    private UserRepository repository;
+    private UserJpaRepository repository;
 
     @Test
     void findByIdAndStatus_로_유저_데이터를_찾아올_수_있다() {
