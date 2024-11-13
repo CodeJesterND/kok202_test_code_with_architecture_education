@@ -13,5 +13,4 @@ public interface UserRepository {
     Optional<UserEntity> findByEmailAndStatus(String email, UserStatus userStatus);
 
     UserEntity save(UserEntity userEntity);
-
 }

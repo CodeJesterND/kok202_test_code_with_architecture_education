@@ -20,4 +20,5 @@ public class PostRepositoryImpl implements PostRepository {
     public PostEntity save(PostEntity postEntity) {
         return postJpaRepository.save(postEntity);
     }
+
 }

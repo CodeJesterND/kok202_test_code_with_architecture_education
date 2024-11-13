@@ -35,7 +35,6 @@ class PostControllerTest {
 
     @Test
     void 사용자는_게시물을_단건_조회_할_수_있다() throws Exception {
-
         // given
         // when
         // then
@@ -50,7 +49,6 @@ class PostControllerTest {
 
     @Test
     void 사용자는_게시물을_수정할_수_있다() throws Exception {
-
         // given
         PostUpdate postUpdate = PostUpdate.builder()
                 .content("Hello World")

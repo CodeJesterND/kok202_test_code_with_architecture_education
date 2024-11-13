@@ -25,7 +25,6 @@ class UserJpaRepositoryTest {
 
     @Test
     void findByIdAndStatus_로_유저_데이터를_찾아올_수_있다() {
-
         // given
         // when
         Optional<UserEntity> result = repository.findByIdAndStatus(1, UserStatus.ACTIVE);
@@ -36,7 +35,6 @@ class UserJpaRepositoryTest {
 
     @Test
     void findByIdAndStatus_는_데이터가_없으면_Optional_empty_를_내려준다() {
-
         // given
         // when
         Optional<UserEntity> result = repository.findByIdAndStatus(1, UserStatus.PENDING);
@@ -47,7 +45,6 @@ class UserJpaRepositoryTest {
 
     @Test
     void findByEmailAndStatus_로_유저_데이터를_찾아올_수_있다() {
-
         // given
         // when
         Optional<UserEntity> result = repository.findByEmailAndStatus("dev.hyoseung@gmail.com", UserStatus.ACTIVE);
@@ -58,7 +55,6 @@ class UserJpaRepositoryTest {
 
     @Test
     void findByEmailAndStatus_는_데이터가_없으면_Optional_empty_를_내려준다() {
-
         // given
         // when
         Optional<UserEntity> result = repository.findByEmailAndStatus("dev.hyoseung@gmail.com", UserStatus.PENDING);

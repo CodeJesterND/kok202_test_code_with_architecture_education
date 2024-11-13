@@ -8,5 +8,4 @@ public interface PostRepository {
     Optional<PostEntity> findById(long id);
 
     PostEntity save(PostEntity postEntity);
-
 }

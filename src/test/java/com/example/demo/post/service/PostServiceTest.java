@@ -26,7 +26,6 @@ class PostServiceTest {
 
     @Test
     void getById는_존재하는_게시물을_내려준다() {
-
         // given
         // when
         PostEntity result = postService.getById(1);
@@ -37,7 +36,6 @@ class PostServiceTest {
 
     @Test
     void postCreateDto_를_이용하여_게시물을_생성할_수_있다() {
-
         // given
         PostCreate postCreate = PostCreate.builder()
                 .writerId(1)
@@ -55,7 +53,6 @@ class PostServiceTest {
 
     @Test
     void postUpdateDto_를_이용하여_게시물을_수정할_수_있다() {
-
         // given
         PostUpdate postUpdate = PostUpdate.builder()
                 .content("hello world :)")

@@ -34,7 +34,6 @@ class PostCreateControllerTest {
 
     @Test
     void 사용자는_게시물을_작성할_수_있다() throws Exception {
-
         // given
         PostCreate postCreate = PostCreate.builder()
                 .writerId(1)

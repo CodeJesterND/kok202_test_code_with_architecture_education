@@ -42,7 +42,6 @@ class UserCreateControllerTest {
 
     @Test
     void 사용자는_회원_가입을_할_수있고_회원가입된_사용자는_PENDING_상태이다() throws Exception {
-
         // given
         UserCreate userCreate = UserCreate.builder()
                 .email("ubin@gmail.com")

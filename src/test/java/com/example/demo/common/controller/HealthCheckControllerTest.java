@@ -20,7 +20,6 @@ class HealthCheckControllerTest {
 
     @Test
     void 헬스_체크_응답이_200으로_내려온다() throws Exception {
-
         // given
         // when
         // then

@@ -37,7 +37,6 @@ public class UserServiceTest {
 
     @Test
     void getByEmail은_ACTIVE_상태인_유저를_찾아올_수_잇다() {
-
         // given
         String email = "dev.hyoseung@gmail.com";
 
@@ -50,7 +49,6 @@ public class UserServiceTest {
 
     @Test
     void getByEmail은_PENDING_상태인_유저를_찾아올_수_없다() {
-
         // given
         String email = "jaeyeon@gmail.com";
 
@@ -63,7 +61,6 @@ public class UserServiceTest {
 
     @Test
     void getById는_ACTIVE_상태인_유저를_찾아올_수_잇다() {
-
         // given
         // when
         UserEntity result = userService.getById(1);
@@ -74,7 +71,6 @@ public class UserServiceTest {
 
     @Test
     void getById은_PENDING_상태인_유저를_찾아올_수_없다() {
-
         // given
         // when
         // then
@@ -85,7 +81,6 @@ public class UserServiceTest {
 
     @Test
     void userCreateDto_를_이용하여_유저를_생성할_수_있다() {
-
         // given
         UserCreate userCreate = UserCreate.builder()
                 .email("ubin@naver.com")
@@ -105,7 +100,6 @@ public class UserServiceTest {
 
     @Test
     void userUpdateDto_를_이용하여_유저를_수정할_수_있다() {
-
         // given
         UserUpdate userUpdate = UserUpdate.builder()
                 .address("Anyang")
@@ -124,7 +118,6 @@ public class UserServiceTest {
 
     @Test
     void user를_로그인_시키면_마지막_로그인_시간이_변경된다() {
-
         // given
         // when
         userService.login(1);
@@ -137,7 +130,6 @@ public class UserServiceTest {
 
     @Test
     void PENDING_상태의_사용자는_인증_코드로_ACTIVE_시킬_수_있다() {
-
         // given
         // when
         userService.verifyEmail(2, "aaaaaaaa-aaaa-aaaa-aaaaaaaaaaab");
@@ -149,7 +141,6 @@ public class UserServiceTest {
 
     @Test
     void PENDING_상태의_사용자는_잘못된_인증_코드를_받으면_에러를_던진다() {
-
         // given
         // when
         // then
