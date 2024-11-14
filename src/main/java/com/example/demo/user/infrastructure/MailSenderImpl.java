@@ -1,6 +1,6 @@
 package com.example.demo.user.infrastructure;
 
-import com.example.demo.user.service.port.MailSender;
+import com.example.demo.user.application.port.mail.MailSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

@@ -1,6 +1,6 @@
 package com.example.demo.mock;
 
-import com.example.demo.user.service.port.MailSender;
+import com.example.demo.user.application.port.mail.MailSender;
 
 public class FakeMailSender implements MailSender {
 
