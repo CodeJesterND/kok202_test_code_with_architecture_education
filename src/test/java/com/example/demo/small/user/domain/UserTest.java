@@ -1,11 +1,13 @@
-package com.example.demo.user.domain;
+package com.example.demo.small.user.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import com.example.demo.common.domain.exception.CertificationCodeNotMatchedException;
-import com.example.demo.mock.TestClockHolder;
-import com.example.demo.mock.TestUuidHolder;
+import com.example.demo.small.common.infrastructure.mock.TestClockHolder;
+import com.example.demo.small.common.infrastructure.mock.TestUuidHolder;
+import com.example.demo.user.domain.User;
+import com.example.demo.user.domain.UserStatus;
 import com.example.demo.user.web.request.UserCreate;
 import com.example.demo.user.web.request.UserUpdate;
 import org.junit.jupiter.api.Test;

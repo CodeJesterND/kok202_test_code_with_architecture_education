@@ -1,8 +1,9 @@
-package com.example.demo.post.web.response;
+package com.example.demo.small.post.web.response;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.example.demo.post.domain.Post;
+import com.example.demo.post.web.response.PostResponse;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
 import org.junit.jupiter.api.Test;

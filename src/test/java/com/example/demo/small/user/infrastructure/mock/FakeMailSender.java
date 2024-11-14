@@ -1,4 +1,4 @@
-package com.example.demo.mock;
+package com.example.demo.small.user.infrastructure.mock;
 
 import com.example.demo.user.application.port.mail.MailSender;
 

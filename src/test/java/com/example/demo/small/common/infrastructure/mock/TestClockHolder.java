@@ -1,4 +1,4 @@
-package com.example.demo.mock;
+package com.example.demo.small.common.infrastructure.mock;
 
 import com.example.demo.common.application.port.ClockHolder;
 import lombok.RequiredArgsConstructor;

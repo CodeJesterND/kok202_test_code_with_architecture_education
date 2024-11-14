@@ -1,16 +1,18 @@
-package com.example.demo.user.application.service;
+package com.example.demo.small.user.application.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import com.example.demo.common.domain.exception.CertificationCodeNotMatchedException;
 import com.example.demo.common.domain.exception.ResourceNotFoundException;
-import com.example.demo.mock.FakeMailSender;
-import com.example.demo.mock.TestClockHolder;
-import com.example.demo.mock.TestUuidHolder;
+import com.example.demo.small.user.infrastructure.mock.FakeMailSender;
+import com.example.demo.small.common.infrastructure.mock.TestClockHolder;
+import com.example.demo.small.common.infrastructure.mock.TestUuidHolder;
+import com.example.demo.user.application.service.CertificationService;
+import com.example.demo.user.application.service.UserService;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
-import com.example.demo.user.infrastructure.mock.FakeUserRepository;
+import com.example.demo.small.user.infrastructure.mock.FakeUserRepository;
 import com.example.demo.user.web.request.UserCreate;
 import com.example.demo.user.web.request.UserUpdate;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +22,8 @@ public class UserServiceTest {
 
     private UserService userService;
 
-    @BeforeEach void init() {
+    @BeforeEach
+    void init() {
         FakeMailSender fakeMailSender = new FakeMailSender();
         FakeUserRepository fakeUserRepository = new FakeUserRepository();
 

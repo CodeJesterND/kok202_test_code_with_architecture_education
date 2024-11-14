@@ -24,18 +24,18 @@ public class UserService {
     private final ClockHolder clockHolder;
 
     @Transactional(readOnly = true)
+    public User getById(long id) {
+        return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Users", id)
+                );
+    }
+
+    @Transactional(readOnly = true)
     public User getByEmail(String email) {
         return userRepository.findByEmailAndStatus(email, UserStatus.ACTIVE)
             .orElseThrow(
                     () -> new ResourceNotFoundException("Users", email)
-            );
-    }
-
-    @Transactional(readOnly = true)
-    public User getById(long id) {
-        return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
-            .orElseThrow(
-                    () -> new ResourceNotFoundException("Users", id)
             );
     }
 
