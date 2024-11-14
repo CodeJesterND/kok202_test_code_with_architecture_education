@@ -5,6 +5,10 @@ import com.example.demo.common.application.port.UuidHolder;
 import com.example.demo.common.domain.exception.ResourceNotFoundException;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
+import com.example.demo.user.web.port.AuthenticationService;
+import com.example.demo.user.web.port.UserCreateService;
+import com.example.demo.user.web.port.UserReadSerivce;
+import com.example.demo.user.web.port.UserUpdateService;
 import com.example.demo.user.web.request.UserCreate;
 import com.example.demo.user.web.request.UserUpdate;
 import com.example.demo.user.application.port.repository.UserRepository;
@@ -16,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Builder
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserCreateService, UserReadSerivce, UserUpdateService, AuthenticationService {
 
     private final UserRepository userRepository;
     private final CertificationService certificationService;

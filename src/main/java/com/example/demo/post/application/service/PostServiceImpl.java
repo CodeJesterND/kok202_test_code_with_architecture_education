@@ -3,6 +3,7 @@ package com.example.demo.post.application.service;
 import com.example.demo.common.application.port.ClockHolder;
 import com.example.demo.common.domain.exception.ResourceNotFoundException;
 import com.example.demo.post.domain.Post;
+import com.example.demo.post.web.port.PostService;
 import com.example.demo.post.web.request.PostCreate;
 import com.example.demo.post.web.request.PostUpdate;
 import com.example.demo.post.application.port.PostRepository;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Builder
 @RequiredArgsConstructor
-public class PostService {
+public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;

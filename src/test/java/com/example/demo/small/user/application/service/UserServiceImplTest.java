@@ -5,29 +5,29 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import com.example.demo.common.domain.exception.CertificationCodeNotMatchedException;
 import com.example.demo.common.domain.exception.ResourceNotFoundException;
-import com.example.demo.small.user.infrastructure.mock.FakeMailSender;
-import com.example.demo.small.common.infrastructure.mock.TestClockHolder;
-import com.example.demo.small.common.infrastructure.mock.TestUuidHolder;
+import com.example.demo.small.mock.FakeMailSender;
+import com.example.demo.small.mock.TestClockHolder;
+import com.example.demo.small.mock.TestUuidHolder;
 import com.example.demo.user.application.service.CertificationService;
-import com.example.demo.user.application.service.UserService;
+import com.example.demo.user.application.service.UserServiceImpl;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
-import com.example.demo.small.user.infrastructure.mock.FakeUserRepository;
+import com.example.demo.small.mock.FakeUserRepository;
 import com.example.demo.user.web.request.UserCreate;
 import com.example.demo.user.web.request.UserUpdate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class UserServiceTest {
+public class UserServiceImplTest {
 
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @BeforeEach
     void init() {
         FakeMailSender fakeMailSender = new FakeMailSender();
         FakeUserRepository fakeUserRepository = new FakeUserRepository();
 
-        userService = UserService.builder()
+        userServiceImpl = UserServiceImpl.builder()
                 .uuidHolder(new TestUuidHolder("aaaaaaaa-aaaa-aaaa-aaaaaaaaaaaa"))
                 .clockHolder(new TestClockHolder(1678350673958L))
                 .userRepository(fakeUserRepository)
@@ -63,7 +63,7 @@ public class UserServiceTest {
         String email = "dev.hyoseung@gmail.com";
 
         // when
-        User result = userService.getByEmail(email);
+        User result = userServiceImpl.getByEmail(email);
 
         // then
         assertThat(result.getNickname()).isEqualTo("hyoseung");
@@ -77,7 +77,7 @@ public class UserServiceTest {
         // when
         // then
         assertThatThrownBy(() -> {
-            User result = userService.getByEmail(email);
+            User result = userServiceImpl.getByEmail(email);
         }).isInstanceOf(ResourceNotFoundException.class);
     }
 
@@ -85,7 +85,7 @@ public class UserServiceTest {
     void getById는_ACTIVE_상태인_유저를_찾아올_수_있다() {
         // given
         // when
-        User result = userService.getById(1);
+        User result = userServiceImpl.getById(1);
 
         // then
         assertThat(result.getNickname()).isEqualTo("hyoseung");
@@ -97,7 +97,7 @@ public class UserServiceTest {
         // when
         // then
         assertThatThrownBy(() -> {
-            User result = userService.getById(2);
+            User result = userServiceImpl.getById(2);
         }).isInstanceOf(ResourceNotFoundException.class);
     }
 
@@ -111,7 +111,7 @@ public class UserServiceTest {
                 .build();
 
         // when
-        User result = userService.create(userCreate);
+        User result = userServiceImpl.create(userCreate);
 
         // then
         assertThat(result.getId()).isNotNull();
@@ -128,10 +128,10 @@ public class UserServiceTest {
                 .build();
 
         // when
-        userService.update(1L, userUpdate);
+        userServiceImpl.update(1L, userUpdate);
 
         // then
-        User User = userService.getById(1);
+        User User = userServiceImpl.getById(1);
         assertThat(User.getId()).isNotNull();
         assertThat(User.getAddress()).isEqualTo("Anyang");
         assertThat(User.getNickname()).isEqualTo("hyoseung-n");
@@ -141,10 +141,10 @@ public class UserServiceTest {
     void user를_로그인_시키면_마지막_로그인_시간이_변경된다() {
         // given
         // when
-        userService.login(1);
+        userServiceImpl.login(1);
 
         // then
-        User result = userService.getById(1);
+        User result = userServiceImpl.getById(1);
         assertThat(result.getLastLoginAt()).isEqualTo(1678350673958L);
     }
 
@@ -152,10 +152,10 @@ public class UserServiceTest {
     void PENDING_상태의_사용자는_인증_코드로_ACTIVE_시킬_수_있다() {
         // given
         // when
-        userService.verifyEmail(2, "aaaaaaaa-aaaa-aaaa-aaaaaaaaaaaa");
+        userServiceImpl.verifyEmail(2, "aaaaaaaa-aaaa-aaaa-aaaaaaaaaaaa");
 
         // then
-        User result = userService.getById(2);
+        User result = userServiceImpl.getById(2);
         assertThat(result.getStatus()).isEqualTo(UserStatus.ACTIVE);
     }
 
@@ -165,7 +165,7 @@ public class UserServiceTest {
         // when
         // then
         assertThatThrownBy(() -> {
-            userService.verifyEmail(2, "aaaaaaaa-aaaa-aaaa-aaaaaaaaaaac");
+            userServiceImpl.verifyEmail(2, "aaaaaaaa-aaaa-aaaa-aaaaaaaaaaac");
         }).isInstanceOf(CertificationCodeNotMatchedException.class);
     }
 

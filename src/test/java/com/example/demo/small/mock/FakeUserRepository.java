@@ -1,4 +1,4 @@
-package com.example.demo.small.user.infrastructure.mock;
+package com.example.demo.small.mock;
 
 import com.example.demo.common.domain.exception.ResourceNotFoundException;
 import com.example.demo.user.application.port.repository.UserRepository;

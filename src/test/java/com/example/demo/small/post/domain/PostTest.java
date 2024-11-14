@@ -2,15 +2,12 @@ package com.example.demo.small.post.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.example.demo.common.application.port.ClockHolder;
 import com.example.demo.post.domain.Post;
 import com.example.demo.post.web.request.PostCreate;
 import com.example.demo.post.web.request.PostUpdate;
-import com.example.demo.small.common.infrastructure.mock.TestClockHolder;
-import com.example.demo.small.post.infrastructure.mock.FakePostRepository;
+import com.example.demo.small.mock.TestClockHolder;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 public class PostTest {
