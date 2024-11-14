@@ -1,21 +1,27 @@
 package com.example.demo.user.application.service;
 
+import com.example.demo.common.application.port.ClockHolder;
+import com.example.demo.common.application.port.UuidHolder;
 import com.example.demo.common.domain.exception.ResourceNotFoundException;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
 import com.example.demo.user.web.request.UserCreate;
 import com.example.demo.user.web.request.UserUpdate;
 import com.example.demo.user.application.port.repository.UserRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final CertificationService certificationService;
+    private final UuidHolder uuidHolder;
+    private final ClockHolder clockHolder;
 
     @Transactional(readOnly = true)
     public User getByEmail(String email) {
@@ -35,7 +41,7 @@ public class UserService {
 
     @Transactional
     public User create(UserCreate userCreate) {
-        User user = User.from(userCreate);
+        User user = User.from(userCreate, uuidHolder);
         user = userRepository.save(user);
         certificationService.send(user.getEmail(), user.getId(), user.getCertificationCode());
         return user;
@@ -54,7 +60,7 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Users", id)
         );
-        user = user.login();
+        user = user.login(clockHolder);
         userRepository.save(user);
     }
 

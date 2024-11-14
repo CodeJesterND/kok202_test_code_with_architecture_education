@@ -1,17 +1,22 @@
-package com.example.demo.post.web;
+package com.example.demo.medium;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.demo.post.web.request.PostCreate;
+import com.example.demo.user.web.request.UserCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
@@ -23,33 +28,41 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureTestDatabase
 @TestPropertySource("classpath:test-application.properties")
 @SqlGroup({
-        @Sql(value = "/sql/post/post-create-controller-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
         @Sql(value = "/sql/common/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 })
-class PostCreateControllerTest {
+class UserCreateControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private JavaMailSender mailSender;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Test
-    void 사용자는_게시물을_작성할_수_있다() throws Exception {
-        // given
-        PostCreate postCreate = PostCreate.builder()
-                .writerId(1)
-                .content("Hello World")
-                .build();
 
+    @Test
+    void 사용자는_회원_가입을_할_수있고_회원가입된_사용자는_PENDING_상태이다() throws Exception {
+        // given
+        UserCreate userCreate = UserCreate.builder()
+                .email("ubin@gmail.com")
+                .nickname("ubin")
+                .address("Seoul")
+                .build();
+        BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
+
+        // when
+        // then
         mockMvc.perform(
-                post("/api/posts")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(postCreate)))
+                        post("/api/users")
+                                .header("EMAIL", "ubin@gmail.com")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content((objectMapper.writeValueAsString(userCreate))))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber())
-                .andExpect(jsonPath("$.content").value("Hello World"))
-                .andExpect(jsonPath("$.writer.id").isNumber())
-                .andExpect(jsonPath("$.writer.email").value("dev.hyoseung@gmail.com"))
-                .andExpect(jsonPath("$.writer.nickname").value("hyoseung"));
+                .andExpect(jsonPath("$.email").value("ubin@gmail.com"))
+                .andExpect(jsonPath("$.nickname").value("ubin"))
+                .andExpect(jsonPath("$.address").doesNotExist())
+                .andExpect(jsonPath("$.status").value("PENDING"));
     }
 
 }

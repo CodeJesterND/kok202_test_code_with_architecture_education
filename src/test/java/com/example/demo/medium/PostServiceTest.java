@@ -1,7 +1,8 @@
-package com.example.demo.post.application.service;
+package com.example.demo.medium;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.example.demo.post.application.service.PostService;
 import com.example.demo.post.domain.Post;
 import com.example.demo.post.web.request.PostCreate;
 import com.example.demo.post.web.request.PostUpdate;

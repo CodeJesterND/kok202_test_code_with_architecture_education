@@ -10,12 +10,12 @@ import lombok.Setter;
 @Builder
 public class MyProfileResponse {
 
-    private Long id;
-    private String email;
-    private String nickname;
-    private String address;
-    private UserStatus status;
-    private Long lastLoginAt;
+    private final Long id;
+    private final String email;
+    private final String nickname;
+    private final String address;
+    private final UserStatus status;
+    private final Long lastLoginAt;
 
     public static MyProfileResponse from(User user) {
         return MyProfileResponse.builder()
